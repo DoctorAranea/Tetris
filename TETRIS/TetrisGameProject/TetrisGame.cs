@@ -1,11 +1,7 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TETRIS.TetrisGameProject
@@ -21,7 +17,7 @@ namespace TETRIS.TetrisGameProject
         public DG_UpdateNextFigure D_UpdateNextFigure = (BlockFigure figure) => { };
 
         public static Random Rand { get; } = new Random();
-        public static Size FieldSize { get => fieldSize; }
+
         private static Size fieldSize;
 
         private PictureBox pBox;
@@ -53,7 +49,7 @@ namespace TETRIS.TetrisGameProject
             SpawnNewPlayer();
         }
 
-        public IEnumerable<Block> Blocks { get => blocks; }
+        public static Size FieldSize { get => fieldSize; }
 
         private void SpawnNewPlayer()
         {

@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TETRIS.TetrisGameProject
 {
     public class BlockFigure
     {
-        public Color FigureColor { get; set; }
-        public Block[] Blocks { get => blocks; }
-        public Point UpLeftBlockLocation { get => new Point(blocks.Min(y => y.Location.X), blocks.Min(y => y.Location.Y)); }
-        public int Width { get => blocks.Max(x => x.Location.X) - blocks.Min(x => x.Location.X) + 1; }
-        public int Height { get => blocks.Max(x => x.Location.Y) - blocks.Min(x => x.Location.Y) + 1; }
-
         private Block[] blocks;
+        private Color figureColor;
 
         public BlockFigure(Point[] blockPoints)
         {
-            FigureColor = Color.FromArgb(TetrisGame.Rand.Next(180, 256), TetrisGame.Rand.Next(180, 256), TetrisGame.Rand.Next(180, 256));
+            figureColor = Color.FromArgb(TetrisGame.Rand.Next(180, 256), TetrisGame.Rand.Next(180, 256), TetrisGame.Rand.Next(180, 256));
 
             blocks = new Block[blockPoints.Length];
             for (int i = blockPoints.Length - 1; i >= 0; i--)
@@ -27,6 +19,12 @@ namespace TETRIS.TetrisGameProject
                 blocks[i] = new Block(FigureColor, blockPoints[i]);
             }
         }
+
+        public Block[] Blocks { get => blocks; }
+        public Color FigureColor { get => figureColor; }
+        public Point UpLeftBlockLocation { get => new Point(blocks.Min(y => y.Location.X), blocks.Min(y => y.Location.Y)); }
+        public int Width { get => blocks.Max(x => x.Location.X) - blocks.Min(x => x.Location.X) + 1; }
+        public int Height { get => blocks.Max(x => x.Location.Y) - blocks.Min(x => x.Location.Y) + 1; }
 
         public BlockFigure GetCopy()
         {
