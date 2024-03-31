@@ -79,7 +79,7 @@ namespace TETRIS
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "GameForm";
-            this.Text = "Тетрис";
+            this.Text = "TETRIS";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nextFigurePB)).EndInit();
             this.ResumeLayout(false);

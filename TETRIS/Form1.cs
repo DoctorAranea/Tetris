@@ -46,7 +46,7 @@ namespace TETRIS
 
         private void UpdateScore(int score)
         {
-            scoreLabel.Text = (int.Parse(scoreLabel.Text) + score).ToString();
+            scoreLabel.Text = score.ToString();
         }
 
         private void GameForm_KeyDown(object sender, KeyEventArgs e)
@@ -64,6 +64,9 @@ namespace TETRIS
                     break;
                 case Keys.D:
                     tetrisGame1.MovePlayer(Block.Direction.Right);
+                    break;
+                case Keys.R:
+                    tetrisGame1.Restart();
                     break;
             }
         }

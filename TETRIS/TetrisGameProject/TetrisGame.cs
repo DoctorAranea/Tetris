@@ -23,18 +23,16 @@ namespace TETRIS.TetrisGameProject
         private PictureBox pBox;
         private Timer timer;
 
+        private int score;
         private List<Block> blocks;
         private BlockFigure currentFigure;
         private BlockFigure nextFigure;
 
-        private bool isGameplay = true;
+        private bool isGameplay = false;
 
         public TetrisGame() : base()
         {
             DoubleBuffered = true;
-
-            fieldSize = new Size(10, 20);
-            blocks = new List<Block>();
 
             pBox = new PictureBox();
             pBox.Parent = this;
@@ -46,6 +44,16 @@ namespace TETRIS.TetrisGameProject
             timer.Tick += Timer_Tick;
             timer.Start();
 
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            fieldSize = new Size(10, 20);
+            blocks = new List<Block>();
+            score = 0;
+
+            isGameplay = true;
             SpawnNewPlayer();
         }
 
@@ -91,6 +99,13 @@ namespace TETRIS.TetrisGameProject
             return true;
         }
 
+        internal void Restart()
+        {
+            Initialize();
+            D_UpdateScore(score);
+            pBox.Invalidate();
+        }
+
         public bool RotatePlayer()
         {
             if (!isGameplay)
@@ -99,7 +114,7 @@ namespace TETRIS.TetrisGameProject
             lock (__lockTick)
             {
                 if (currentFigure != null)
-                    if (currentFigure.Rotate( this.blocks))
+                    if (currentFigure.Rotate(this.blocks))
                         return false;
             }
 
@@ -109,7 +124,8 @@ namespace TETRIS.TetrisGameProject
 
         private void PictureBox_Paint(object sender, PaintEventArgs e)
         {
-            D_UpdateNextFigure(nextFigure);
+            if (nextFigure != null)
+                D_UpdateNextFigure(nextFigure);
 
             var g = e.Graphics;
 
@@ -166,7 +182,8 @@ namespace TETRIS.TetrisGameProject
                     this.blocks.AddRange(blocks);
                     currentFigure = null;
 
-                    int score = DoneLines();
+                    int newScore = DoneLines();
+                    score += newScore;
                     D_UpdateScore(score);
                 }
             }
