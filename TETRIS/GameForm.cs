@@ -38,7 +38,7 @@ namespace TETRIS
             for (int i = 0; i < figure.Blocks.Length; i++)
             {
                 var loc = figure.Blocks[i].Location;
-                g.FillRectangle(brush, new Rectangle(new Point(loc.X * TetrisGame.CELLSIZE, loc.Y * TetrisGame.CELLSIZE), new Size(TetrisGame.CELLSIZE, TetrisGame.CELLSIZE)));
+                g.FillRectangle(brush, new Rectangle(new Point(loc.X * TetrisGame.CELLSIZE + 1, loc.Y * TetrisGame.CELLSIZE + 1), new Size(TetrisGame.CELLSIZE, TetrisGame.CELLSIZE)));
             }
 
             nextFigurePB.Image = bitmap;

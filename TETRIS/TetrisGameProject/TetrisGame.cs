@@ -148,7 +148,7 @@ namespace TETRIS.TetrisGameProject
             {
                 var block = blocks[i];
                 var location = block.Location;
-                g.FillRectangle(new SolidBrush(block.BlockColor), location.X * CELLSIZE, location.Y * CELLSIZE, CELLSIZE + 1, CELLSIZE + 1);
+                g.FillRectangle(new SolidBrush(block.BlockColor), location.X * CELLSIZE + 1, location.Y * CELLSIZE + 1, CELLSIZE/* + 1*/, CELLSIZE/* + 1*/);
             }
 
             if (currentFigure != null)
@@ -156,7 +156,7 @@ namespace TETRIS.TetrisGameProject
                 {
                     var block = currentFigure.Blocks[i];
                     var location = block.Location;
-                    g.FillRectangle(new SolidBrush(block.BlockColor), location.X * CELLSIZE, location.Y * CELLSIZE, CELLSIZE + 1, CELLSIZE + 1);
+                    g.FillRectangle(new SolidBrush(block.BlockColor), location.X * CELLSIZE + 1, location.Y * CELLSIZE + 1, CELLSIZE/* + 1*/, CELLSIZE/* + 1*/);
                 }
         }
 
