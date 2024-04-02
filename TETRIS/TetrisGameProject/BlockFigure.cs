@@ -11,7 +11,26 @@ namespace TETRIS.TetrisGameProject
 
         public BlockFigure(Point[] blockPoints)
         {
-            figureColor = Color.FromArgb(TetrisGame.Rand.Next(180, 256), TetrisGame.Rand.Next(180, 256), TetrisGame.Rand.Next(180, 256));
+            int mainChannel = TetrisGame.Rand.Next(3);
+
+            int upperBound = 220;
+
+            int[] rgb = new int[3]
+            {
+                TetrisGame.Rand.Next(180, upperBound),
+                TetrisGame.Rand.Next(180, upperBound),
+                TetrisGame.Rand.Next(180, upperBound)
+            };
+            for (int i = 0; i < rgb.Length; i++)
+            {
+                if (i == mainChannel)
+                    rgb[i] = 255/*(int)(rgb[i] * 1.5)*/;
+                else
+                    rgb[i] = (int)(rgb[i] / 1.3);
+            }
+
+            if (rgb[mainChannel] > upperBound) rgb[mainChannel] = upperBound;
+            figureColor = Color.FromArgb(rgb[0], rgb[1], rgb[2]);
 
             blocks = new Block[blockPoints.Length];
             for (int i = blockPoints.Length - 1; i >= 0; i--)
@@ -88,7 +107,7 @@ namespace TETRIS.TetrisGameProject
                 for (int x = 0; x < newTwoDimensionalBlocksArray.GetLength(0); x++)
                 {
                     if (newTwoDimensionalBlocksArray[x, y] != null)
-                        if  (
+                        if (
                                 x + rotationCenter.X >= TetrisGame.FieldSize.Width ||
                                 y + rotationCenter.Y >= TetrisGame.FieldSize.Height ||
                                 fieldBlocks.FirstOrDefault(block => block.Location.X == x + rotationCenter.X && block.Location.Y == y + rotationCenter.Y) != null

@@ -37,6 +37,7 @@ namespace TETRIS
             // 
             // tetrisGame1
             // 
+            this.tetrisGame1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tetrisGame1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.tetrisGame1.Location = new System.Drawing.Point(12, 12);
             this.tetrisGame1.Name = "tetrisGame1";
@@ -46,6 +47,7 @@ namespace TETRIS
             // 
             // scoreLabel
             // 
+            this.scoreLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.scoreLabel.Font = new System.Drawing.Font("MS PGothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.scoreLabel.ForeColor = System.Drawing.Color.White;
             this.scoreLabel.Location = new System.Drawing.Point(268, 487);
@@ -58,6 +60,7 @@ namespace TETRIS
             // 
             // nextFigurePB
             // 
+            this.nextFigurePB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.nextFigurePB.Location = new System.Drawing.Point(271, 12);
             this.nextFigurePB.Name = "nextFigurePB";
             this.nextFigurePB.Size = new System.Drawing.Size(100, 100);
@@ -70,15 +73,17 @@ namespace TETRIS
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(23)))), ((int)(((byte)(57)))));
             this.ClientSize = new System.Drawing.Size(380, 523);
+            this.ControlBox = false;
             this.Controls.Add(this.nextFigurePB);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.tetrisGame1);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "GameForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "TETRIS";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nextFigurePB)).EndInit();
