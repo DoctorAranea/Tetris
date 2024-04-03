@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorMine.ColorSpaces;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace TETRIS.TetrisGameProject
         public static Random Rand { get; } = new Random();
 
         private static Size fieldSize;
+        private static Bitmap blockSkin;
 
         private PictureBox pBox;
         private Timer timer;
@@ -58,6 +60,7 @@ namespace TETRIS.TetrisGameProject
         }
 
         public static Size FieldSize { get => fieldSize; }
+        public static Bitmap BlockSkin { get => blockSkin; }
 
         private void SpawnNewPlayer()
         {
@@ -145,19 +148,28 @@ namespace TETRIS.TetrisGameProject
             g.DrawLine(linesPen, 0, fieldSize.Height * CELLSIZE - 1, fieldSize.Width * CELLSIZE - 1, fieldSize.Height * CELLSIZE - 1);
 
             for (int i = 0; i < blocks.Count; i++)
-            {
-                var block = blocks[i];
-                var location = block.Location;
-                g.FillRectangle(new SolidBrush(block.BlockColor), location.X * CELLSIZE + 1, location.Y * CELLSIZE + 1, CELLSIZE/* + 1*/, CELLSIZE/* + 1*/);
-            }
+                FillBlock(g, blocks[i]);
 
-            if (currentFigure != null)
-                for (int i = 0; i < currentFigure.Blocks.Length; i++)
-                {
-                    var block = currentFigure.Blocks[i];
-                    var location = block.Location;
-                    g.FillRectangle(new SolidBrush(block.BlockColor), location.X * CELLSIZE + 1, location.Y * CELLSIZE + 1, CELLSIZE/* + 1*/, CELLSIZE/* + 1*/);
-                }
+            for (int i = 0; currentFigure != null && i < currentFigure.Blocks.Length; i++)
+                FillBlock(g, currentFigure.Blocks[i]);
+
+            Color white = Color.Aquamarine;
+            Rgb rgb1 = new Rgb() { R = white.R, G = white.G, B = white.B };
+            Hsb hsb1 = rgb1.To<Hsb>();
+            
+            //Hsb hsb = new Hsb();
+            //hsb.H = 0.25;
+            //hsb.S = 0.6;
+            //hsb.B = 0.7;
+            //var rgb = hsb.To<Rgb>();
+            //var color = Color.FromArgb((int)rgb.R, (int)rgb.G, (int)rgb.B);
+        }
+
+        private static void FillBlock(Graphics g, Block block)
+        {
+            var location = block.Location;
+            Color blockShadowColor = Color.FromArgb(block.BlockColor.R / 2, block.BlockColor.G / 2, block.BlockColor.B / 2);
+            g.FillRectangle(new SolidBrush(block.BlockColor), location.X * CELLSIZE + 1, location.Y * CELLSIZE + 1, CELLSIZE, CELLSIZE);
         }
 
         public static object __lockTick = new { };

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorMine.ColorSpaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +22,17 @@ namespace TETRIS
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            Bitmap skin = new Bitmap("blockSkin.png");
+            for (int y = 0; y < skin.Height; y++)
+            {
+                for (int x = 0; x < skin.Width; x++)
+                {
+                    Color pixel = skin.GetPixel(x, y);
+                    float brightness = pixel.GetBrightness();
+                    
+                }
+            }
+
             game = new GameForm();
             game.TopLevel = false;
             game.TopMost = true;
