@@ -20,10 +20,11 @@ namespace TETRIS.TetrisGameProject
         public static Random Rand { get; } = new Random();
 
         private static Size fieldSize;
-        private static Bitmap blockSkin;
+        private static float[,] blockSkinBrightnessMap;
 
         private PictureBox pBox;
         private Timer timer;
+        private Timer animTimer;
 
         private int score;
         private List<Block> blocks;
@@ -46,6 +47,11 @@ namespace TETRIS.TetrisGameProject
             timer.Tick += Timer_Tick;
             timer.Start();
 
+            animTimer = new Timer();
+            animTimer.Interval = 60;
+            animTimer.Tick += AnimTimer_Tick;
+            animTimer.Start();
+
             Initialize();
         }
 
@@ -53,6 +59,7 @@ namespace TETRIS.TetrisGameProject
         {
             fieldSize = new Size(10, 20);
             blocks = new List<Block>();
+            nextFigure = null;
             score = 0;
 
             isGameplay = true;
@@ -60,7 +67,7 @@ namespace TETRIS.TetrisGameProject
         }
 
         public static Size FieldSize { get => fieldSize; }
-        public static Bitmap BlockSkin { get => blockSkin; }
+        public static float[,] BlockSkinBrightnessMap { get => blockSkinBrightnessMap; set => blockSkinBrightnessMap = value; }
 
         private void SpawnNewPlayer()
         {
@@ -91,7 +98,7 @@ namespace TETRIS.TetrisGameProject
             if (!isGameplay)
                 return false;
 
-            lock (__lockTick)
+            //lock (__lockTick)
             {
                 if (currentFigure != null)
                     if (currentFigure.Move(direction, this.blocks) != null)
@@ -114,7 +121,7 @@ namespace TETRIS.TetrisGameProject
             if (!isGameplay)
                 return false;
 
-            lock (__lockTick)
+            //lock (__lockTick)
             {
                 if (currentFigure != null)
                     if (currentFigure.Rotate(this.blocks))
@@ -153,23 +160,21 @@ namespace TETRIS.TetrisGameProject
             for (int i = 0; currentFigure != null && i < currentFigure.Blocks.Length; i++)
                 FillBlock(g, currentFigure.Blocks[i]);
 
-            Color white = Color.Aquamarine;
-            Rgb rgb1 = new Rgb() { R = white.R, G = white.G, B = white.B };
-            Hsb hsb1 = rgb1.To<Hsb>();
-            
-            //Hsb hsb = new Hsb();
-            //hsb.H = 0.25;
-            //hsb.S = 0.6;
-            //hsb.B = 0.7;
-            //var rgb = hsb.To<Rgb>();
-            //var color = Color.FromArgb((int)rgb.R, (int)rgb.G, (int)rgb.B);
+            TetrisGame_AnimationLogic.DrawEffects(g);
         }
 
-        private static void FillBlock(Graphics g, Block block)
+        public static void FillBlock(Graphics g, Block block)
         {
             var location = block.Location;
-            Color blockShadowColor = Color.FromArgb(block.BlockColor.R / 2, block.BlockColor.G / 2, block.BlockColor.B / 2);
-            g.FillRectangle(new SolidBrush(block.BlockColor), location.X * CELLSIZE + 1, location.Y * CELLSIZE + 1, CELLSIZE, CELLSIZE);
+            if (blockSkinBrightnessMap != default)
+            {
+                Bitmap skin = TetrisGame_SkinLogic.GetSkinBlock(block);
+                g.DrawImage(skin, location.X * CELLSIZE + 1, location.Y * CELLSIZE + 1);
+            }
+            else
+            {
+                g.FillRectangle(new SolidBrush(block.BlockColor), location.X * CELLSIZE + 1, location.Y * CELLSIZE + 1, CELLSIZE, CELLSIZE);
+            }
         }
 
         public static object __lockTick = new { };
@@ -186,7 +191,7 @@ namespace TETRIS.TetrisGameProject
                 return;
             }
 
-            lock (__lockTick)
+            //lock (__lockTick)
             {
                 var blocks = currentFigure.Move(Block.Direction.Down, this.blocks);
                 if (blocks != null)
@@ -202,9 +207,16 @@ namespace TETRIS.TetrisGameProject
             pBox.Invalidate();
         }
 
+        private void AnimTimer_Tick(object sender, EventArgs e)
+        {
+            TetrisGame_AnimationLogic.UpdateEffects();
+
+            pBox.Invalidate();
+        }
+
         private int DoneLines()
         {
-            int count = 0;
+            int lineCount = 0;
 
             for (int i = fieldSize.Height - 1; i >= 0; i--)
             {
@@ -212,14 +224,17 @@ namespace TETRIS.TetrisGameProject
 
                 if (blocksInLineCount == fieldSize.Width)
                 {
+                    foreach (var block in blocks.Where(x => x.Location.Y == i))
+                        TetrisGame_AnimationLogic.AddDestroyedBlock(lineCount, block);
+
                     blocks.RemoveAll(x => x.Location.Y == i);
                     blocks.Where(x => x.Location.Y < i).ToList().ForEach(new Action<Block>((Block x) => { x.Move(Block.Direction.Down); }));
-                    count++;
+                    lineCount++;
                     i++;
                 }
             }
 
-            return count;
+            return lineCount;
         }
     }
 }

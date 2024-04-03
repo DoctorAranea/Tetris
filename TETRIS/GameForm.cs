@@ -34,12 +34,8 @@ namespace TETRIS
             g.DrawLine(linesPen, 4 * TetrisGame.CELLSIZE - 1, 0, 4 * TetrisGame.CELLSIZE - 1, 4 * TetrisGame.CELLSIZE - 1);
             g.DrawLine(linesPen, 0, 4 * TetrisGame.CELLSIZE - 1, 4 * TetrisGame.CELLSIZE - 1, 4 * TetrisGame.CELLSIZE - 1);
 
-            SolidBrush brush = new SolidBrush(figure.FigureColor);
             for (int i = 0; i < figure.Blocks.Length; i++)
-            {
-                var loc = figure.Blocks[i].Location;
-                g.FillRectangle(brush, new Rectangle(new Point(loc.X * TetrisGame.CELLSIZE + 1, loc.Y * TetrisGame.CELLSIZE + 1), new Size(TetrisGame.CELLSIZE, TetrisGame.CELLSIZE)));
-            }
+                TetrisGame.FillBlock(g, figure.Blocks[i]);
 
             nextFigurePB.Image = bitmap;
         }

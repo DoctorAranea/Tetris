@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TETRIS.TetrisGameProject;
 
 namespace TETRIS
 {
@@ -23,15 +24,17 @@ namespace TETRIS
         private void MainForm_Shown(object sender, EventArgs e)
         {
             Bitmap skin = new Bitmap("blockSkin.png");
-            for (int y = 0; y < skin.Height; y++)
+            float[,] newBrightnessMap = new float[TetrisGame.CELLSIZE, TetrisGame.CELLSIZE];
+            for (int y = 0; y < TetrisGame.CELLSIZE; y++)
             {
-                for (int x = 0; x < skin.Width; x++)
+                for (int x = 0; x < TetrisGame.CELLSIZE; x++)
                 {
                     Color pixel = skin.GetPixel(x, y);
                     float brightness = pixel.GetBrightness();
-                    
+                    newBrightnessMap[x, y] = brightness;
                 }
             }
+            TetrisGame.BlockSkinBrightnessMap = newBrightnessMap;
 
             game = new GameForm();
             game.TopLevel = false;

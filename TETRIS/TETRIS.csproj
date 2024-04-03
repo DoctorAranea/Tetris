@@ -87,6 +87,8 @@
     <Compile Include="TetrisGameProject\TetrisGame.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="TetrisGame_AnimationLogic.cs" />
+    <Compile Include="TetrisGame_SkinLogic.cs" />
     <EmbeddedResource Include="GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>

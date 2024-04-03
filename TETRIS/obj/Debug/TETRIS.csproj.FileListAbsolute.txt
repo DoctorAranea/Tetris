@@ -1,0 +1,16 @@
+D:\Программы\!ShitProjects\TETRIS\TETRIS\bin\Debug\TETRIS.exe.config
+D:\Программы\!ShitProjects\TETRIS\TETRIS\bin\Debug\TETRIS.exe
+D:\Программы\!ShitProjects\TETRIS\TETRIS\bin\Debug\TETRIS.pdb
+D:\Программы\!ShitProjects\TETRIS\TETRIS\obj\Debug\TETRIS.csproj.AssemblyReference.cache
+D:\Программы\!ShitProjects\TETRIS\TETRIS\obj\Debug\TETRIS.Properties.Resources.resources
+D:\Программы\!ShitProjects\TETRIS\TETRIS\obj\Debug\TETRIS.csproj.GenerateResource.cache
+D:\Программы\!ShitProjects\TETRIS\TETRIS\obj\Debug\TETRIS.csproj.CoreCompileInputs.cache
+D:\Программы\!ShitProjects\TETRIS\TETRIS\obj\Debug\TETRIS.exe
+D:\Программы\!ShitProjects\TETRIS\TETRIS\obj\Debug\TETRIS.pdb
+D:\Программы\!ShitProjects\TETRIS\TETRIS\obj\Debug\TETRIS.GameForm.resources
+D:\Программы\!ShitProjects\TETRIS\TETRIS\bin\Debug\Newtonsoft.Json.dll
+D:\Программы\!ShitProjects\TETRIS\TETRIS\bin\Debug\Newtonsoft.Json.xml
+D:\Программы\!ShitProjects\TETRIS\TETRIS\obj\Debug\TETRIS.csproj.CopyComplete
+D:\Программы\!ShitProjects\TETRIS\TETRIS\obj\Debug\TETRIS.MainForm.resources
+D:\Программы\!ShitProjects\TETRIS\TETRIS\bin\Debug\ColorMinePortable.dll
+D:\Программы\!ShitProjects\TETRIS\TETRIS\bin\Debug\ColorMinePortable.xml
