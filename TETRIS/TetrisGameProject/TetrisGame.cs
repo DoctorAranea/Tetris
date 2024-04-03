@@ -98,12 +98,9 @@ namespace TETRIS.TetrisGameProject
             if (!isGameplay)
                 return false;
 
-            //lock (__lockTick)
-            {
-                if (currentFigure != null)
-                    if (currentFigure.Move(direction, this.blocks) != null)
-                        return false;
-            }
+            if (currentFigure != null)
+                if (currentFigure.Move(direction, this.blocks) != null)
+                    return false;
 
             pBox.Invalidate();
             return true;
@@ -121,12 +118,9 @@ namespace TETRIS.TetrisGameProject
             if (!isGameplay)
                 return false;
 
-            //lock (__lockTick)
-            {
-                if (currentFigure != null)
-                    if (currentFigure.Rotate(this.blocks))
-                        return false;
-            }
+            if (currentFigure != null)
+                if (currentFigure.Rotate(this.blocks))
+                    return false;
 
             pBox.Invalidate();
             return true;
@@ -177,8 +171,6 @@ namespace TETRIS.TetrisGameProject
             }
         }
 
-        public static object __lockTick = new { };
-
         private void Timer_Tick(object sender, EventArgs e)
         {
             if (!isGameplay)
@@ -191,18 +183,15 @@ namespace TETRIS.TetrisGameProject
                 return;
             }
 
-            //lock (__lockTick)
+            var blocks = currentFigure.Move(Block.Direction.Down, this.blocks);
+            if (blocks != null)
             {
-                var blocks = currentFigure.Move(Block.Direction.Down, this.blocks);
-                if (blocks != null)
-                {
-                    this.blocks.AddRange(blocks);
-                    currentFigure = null;
+                this.blocks.AddRange(blocks);
+                currentFigure = null;
 
-                    int newScore = DoneLines();
-                    score += newScore;
-                    D_UpdateScore(score);
-                }
+                int newScore = DoneLines();
+                score += newScore;
+                D_UpdateScore(score);
             }
             pBox.Invalidate();
         }
