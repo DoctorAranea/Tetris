@@ -133,18 +133,20 @@ namespace TETRIS.TetrisGameProject
 
             var g = e.Graphics;
 
-            g.Clear(Color.DarkBlue);
+            g.Clear(Color.FromArgb(0, 0, 92));
 
             Pen linesPen = new Pen(Color.Gray);
-            for (int y = 0; y <= fieldSize.Height; y++)
-            {
-                for (int x = 0; x <= fieldSize.Width; x++)
-                {
-                    g.DrawLine(linesPen, CELLSIZE * x, CELLSIZE * y, CELLSIZE * x, fieldSize.Height);
-                    g.DrawLine(linesPen, CELLSIZE * x, CELLSIZE * y, fieldSize.Width, CELLSIZE * y);
-                }
-            }
+            //for (int y = 0; y <= fieldSize.Height; y++)
+            //{
+            //    for (int x = 0; x <= fieldSize.Width; x++)
+            //    {
+            //        g.DrawLine(linesPen, CELLSIZE * x, CELLSIZE * y, CELLSIZE * x, fieldSize.Height);
+            //        g.DrawLine(linesPen, CELLSIZE * x, CELLSIZE * y, fieldSize.Width, CELLSIZE * y);
+            //    }
+            //}
 
+            g.DrawLine(linesPen, 0, 0, fieldSize.Width * CELLSIZE - 1, 0);
+            g.DrawLine(linesPen, 0, 0, 0, fieldSize.Height * CELLSIZE - 1);
             g.DrawLine(linesPen, fieldSize.Width * CELLSIZE - 1, 0, fieldSize.Width * CELLSIZE - 1, fieldSize.Height * CELLSIZE - 1);
             g.DrawLine(linesPen, 0, fieldSize.Height * CELLSIZE - 1, fieldSize.Width * CELLSIZE - 1, fieldSize.Height * CELLSIZE - 1);
 
@@ -189,6 +191,7 @@ namespace TETRIS.TetrisGameProject
                 this.blocks.AddRange(blocks);
                 currentFigure = null;
 
+                TetrisGame_AnimationLogic.ControlShake(pBox);
                 int newScore = DoneLines();
                 score += newScore;
                 D_UpdateScore(score);

@@ -19,18 +19,20 @@ namespace TETRIS
             Bitmap bitmap = new Bitmap(4 * TetrisGame.CELLSIZE, 4 * TetrisGame.CELLSIZE);
             Graphics g = Graphics.FromImage(bitmap);
 
-            g.Clear(Color.DarkBlue);
+            g.Clear(Color.FromArgb(0, 0, 92));
 
             Pen linesPen = new Pen(Color.Gray);
-            for (int y = 0; y <= 4; y++)
-            {
-                for (int x = 0; x <= 4; x++)
-                {
-                    g.DrawLine(linesPen, TetrisGame.CELLSIZE * x, TetrisGame.CELLSIZE * y, TetrisGame.CELLSIZE * x, 4);
-                    g.DrawLine(linesPen, TetrisGame.CELLSIZE * x, TetrisGame.CELLSIZE * y, 4, TetrisGame.CELLSIZE * y);
-                }
-            }
+            //for (int y = 0; y <= 4; y++)
+            //{
+            //    for (int x = 0; x <= 4; x++)
+            //    {
+            //        g.DrawLine(linesPen, TetrisGame.CELLSIZE * x, TetrisGame.CELLSIZE * y, TetrisGame.CELLSIZE * x, 4);
+            //        g.DrawLine(linesPen, TetrisGame.CELLSIZE * x, TetrisGame.CELLSIZE * y, 4, TetrisGame.CELLSIZE * y);
+            //    }
+            //}
 
+            g.DrawLine(linesPen, 0, 0, 4 * TetrisGame.CELLSIZE - 1, 0);
+            g.DrawLine(linesPen, 0, 0, 0, 4 * TetrisGame.CELLSIZE - 1);
             g.DrawLine(linesPen, 4 * TetrisGame.CELLSIZE - 1, 0, 4 * TetrisGame.CELLSIZE - 1, 4 * TetrisGame.CELLSIZE - 1);
             g.DrawLine(linesPen, 0, 4 * TetrisGame.CELLSIZE - 1, 4 * TetrisGame.CELLSIZE - 1, 4 * TetrisGame.CELLSIZE - 1);
 
