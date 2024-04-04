@@ -71,6 +71,17 @@ namespace TETRIS.TetrisGameProject
                     new System.Drawing.Point(2, 1),
                 }
             ),
+            new BlockFigure(new System.Drawing.Point[]
+                {
+                    /// .#.
+                    /// ###
+
+                    new System.Drawing.Point(1, 0),
+                    new System.Drawing.Point(0, 1),
+                    new System.Drawing.Point(1, 1),
+                    new System.Drawing.Point(2, 1),
+                }
+            ),
         };
     }
 }
