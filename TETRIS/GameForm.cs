@@ -19,9 +19,12 @@ namespace TETRIS
             Bitmap bitmap = new Bitmap(4 * TetrisGame.CELLSIZE, 4 * TetrisGame.CELLSIZE);
             Graphics g = Graphics.FromImage(bitmap);
 
-            g.Clear(Color.FromArgb(0, 0, 92));
+            g.FillBackground(Color.FromArgb(0, 0, 92), 4, 4);
 
             Pen linesPen = new Pen(Color.Gray);
+
+            #region --- Отрисовка сетки
+
             //for (int y = 0; y <= 4; y++)
             //{
             //    for (int x = 0; x <= 4; x++)
@@ -31,13 +34,19 @@ namespace TETRIS
             //    }
             //}
 
+            #endregion
+
+            for (int i = 0; i < figure.Blocks.Length; i++)
+                g.FillBlock(figure.Blocks[i]);
+
+            #region --- Отрисовка рамки
+
             g.DrawLine(linesPen, 0, 0, 4 * TetrisGame.CELLSIZE - 1, 0);
             g.DrawLine(linesPen, 0, 0, 0, 4 * TetrisGame.CELLSIZE - 1);
             g.DrawLine(linesPen, 4 * TetrisGame.CELLSIZE - 1, 0, 4 * TetrisGame.CELLSIZE - 1, 4 * TetrisGame.CELLSIZE - 1);
             g.DrawLine(linesPen, 0, 4 * TetrisGame.CELLSIZE - 1, 4 * TetrisGame.CELLSIZE - 1, 4 * TetrisGame.CELLSIZE - 1);
 
-            for (int i = 0; i < figure.Blocks.Length; i++)
-                TetrisGame.FillBlock(g, figure.Blocks[i]);
+            #endregion
 
             nextFigurePB.Image = bitmap;
         }

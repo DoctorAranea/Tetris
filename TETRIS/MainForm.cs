@@ -23,18 +23,19 @@ namespace TETRIS
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            Bitmap skin = new Bitmap("blockSkin.png");
-            float[,] newBrightnessMap = new float[TetrisGame.CELLSIZE, TetrisGame.CELLSIZE];
-            for (int y = 0; y < TetrisGame.CELLSIZE; y++)
+            try
             {
-                for (int x = 0; x < TetrisGame.CELLSIZE; x++)
-                {
-                    Color pixel = skin.GetPixel(x, y);
-                    float brightness = pixel.GetBrightness();
-                    newBrightnessMap[x, y] = brightness;
-                }
+                float[,] newBrightnessMap = GetBrightnessMap("blockSkin.png");
+                TetrisGame.BlockSkinBrightnessMap = newBrightnessMap;
             }
-            TetrisGame.BlockSkinBrightnessMap = newBrightnessMap;
+            catch { }
+
+            try
+            {
+                float[,] newBackgroundBrightnessMap = GetBrightnessMap("backgroundSkin.png");
+                TetrisGame.BackgroundBlockSkinBrightnessMap = newBackgroundBrightnessMap;
+            }
+            catch { }
 
             game = new GameForm();
             game.TopLevel = false;
@@ -42,6 +43,23 @@ namespace TETRIS
             mainPanel.Controls.Add(game);
             game.Show();
             ResizeGameForm();
+        }
+
+        private static float[,] GetBrightnessMap(string filename)
+        {
+            Bitmap skin = new Bitmap(filename);
+            float[,] newBrightnessMap = new float[skin.Width, skin.Height];
+            for (int y = 0; y < skin.Height; y++)
+            {
+                for (int x = 0; x < skin.Width; x++)
+                {
+                    Color pixel = skin.GetPixel(x, y);
+                    float brightness = pixel.GetBrightness();
+                    newBrightnessMap[x, y] = brightness;
+                }
+            }
+
+            return newBrightnessMap;
         }
 
         private void ResizeGameForm()

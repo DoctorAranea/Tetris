@@ -4,6 +4,9 @@ namespace TETRIS.TetrisGameProject
 {
     public static class Figures
     {
+        /// <summary>
+        /// Список всех возможных фигур
+        /// </summary>
         public static List<BlockFigure> FigureTypes { get; } = new List<BlockFigure>
         {
             new BlockFigure(new System.Drawing.Point[]

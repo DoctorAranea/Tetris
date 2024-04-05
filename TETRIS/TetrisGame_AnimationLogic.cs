@@ -15,6 +15,7 @@ namespace TETRIS
         private static Dictionary<Point, int> doneBlocksDict = new Dictionary<Point, int>();
         private static int doneFrames = 6;
 
+        // Обновление кадров эффектов
         public static void UpdateEffects()
         {
             List<Point> removedBlocks = new List<Point>();
@@ -29,15 +30,7 @@ namespace TETRIS
                 doneBlocksDict.Remove(removedBlocks[i]);
         }
 
-        public static void AddDestroyedBlock(int count, Block item)
-        {
-            Point effectPoint = new Point(item.Location.X, item.Location.Y - count);
-            if (!doneBlocksDict.ContainsKey(item.Location))
-                doneBlocksDict.Add(effectPoint, doneFrames);
-            else
-                doneBlocksDict[effectPoint] = doneFrames;
-        }
-
+        // Отрисовка эффектов
         public static void DrawEffects(Graphics g)
         {
             var brush = new SolidBrush(Color.White);
@@ -49,6 +42,17 @@ namespace TETRIS
             }
         }
 
+        // Добавление блока в список разрушенных
+        public static void AddDestroyedBlock(int count, Block item)
+        {
+            Point effectPoint = new Point(item.Location.X, item.Location.Y - count);
+            if (!doneBlocksDict.ContainsKey(item.Location))
+                doneBlocksDict.Add(effectPoint, doneFrames);
+            else
+                doneBlocksDict[effectPoint] = doneFrames;
+        }
+
+        // Тряска элемента управления
         public static void ControlShake(Control control)
         {
             Point startPos = control.Location;
