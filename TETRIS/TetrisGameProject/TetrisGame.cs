@@ -191,7 +191,7 @@ namespace TETRIS.TetrisGameProject
                 this.blocks.AddRange(blocks);
                 currentFigure = null;
 
-                TetrisGame_AnimationLogic.ControlShake(pBox);
+                TetrisGame_AnimationLogic.ControlShake(this);
                 int newScore = DoneLines();
                 score += newScore;
                 D_UpdateScore(score);
@@ -201,8 +201,10 @@ namespace TETRIS.TetrisGameProject
 
         private void AnimTimer_Tick(object sender, EventArgs e)
         {
-            TetrisGame_AnimationLogic.UpdateEffects();
+            if (!isGameplay)
+                return;
 
+            TetrisGame_AnimationLogic.UpdateEffects();
             pBox.Invalidate();
         }
 

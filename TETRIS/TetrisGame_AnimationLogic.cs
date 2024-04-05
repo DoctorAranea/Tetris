@@ -51,15 +51,15 @@ namespace TETRIS
 
         public static void ControlShake(Control control)
         {
-            //Point startPos = control.Location;
-            //int shakeCount = 6;
-            //for (int i = 0; i < shakeCount; i++)
-            //{
-                //control.Location = new Point(TetrisGame.Rand.Next(startPos.X - 2, startPos.X + 3), TetrisGame.Rand.Next(startPos.Y - 2, startPos.Y + 3));
-                //control.Invalidate();
-                //Thread.Sleep(50);
-            //}
-            //control.Location = startPos;
+            Point startPos = control.Location;
+            int shakeCount = 3;
+            int shakeStrength = 3;
+            for (int i = 0; i < shakeCount; i++)
+            {
+                control.Location = new Point(TetrisGame.Rand.Next(startPos.X - shakeStrength, startPos.X + shakeStrength + 1), TetrisGame.Rand.Next(startPos.Y - shakeStrength, startPos.Y + shakeStrength + 1));
+                Thread.Sleep(50);
+            }
+            control.Location = startPos;
         }
     }
 }
